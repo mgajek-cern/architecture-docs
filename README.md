@@ -84,10 +84,6 @@ TODO(mgajek-cern): Add links if existing
 
 ### 7. Deployment view
 
-As of now, the system differentiates between development and production environments. Expanding this to include a **dedicated QA/staging environment** would enable isolated validation of changes before release. This environment could mirror production closely to ensure realistic testing.
-
-### 7. Deployment View
-
 *To be defined with stakeholders – example below.*
 
 #### Environments
