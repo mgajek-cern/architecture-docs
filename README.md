@@ -91,6 +91,18 @@ Rucio daemons orchestrate data management through a **database-driven workflow p
 Rule Created → Judge Evaluator → Conveyor Submitter → Transfer Tool → Conveyor Poller → Conveyor Finisher
 ```
 
+#### REST API
+
+TODO(mgajek-cern)
+
+#### Web UI
+
+TODO(mgajek-cern)
+
+#### Client
+
+TODO(mgajek-cern)
+
 ### 6. Runtime view
 
 TODO(mgajek-cern): Add links if existing
