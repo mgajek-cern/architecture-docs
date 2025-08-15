@@ -74,9 +74,15 @@ See also: [Rucio Project Structure](https://rucio.github.io/documentation/develo
 
 ##### Daemons
 
-TODO(mgajek-cern): Decomposition
+[For comprehensive information about Rucio daemons, see the official documentation](https://rucio.github.io/documentation/started/main_components/daemons)
 
-[For more information on Rucio daemons refer to this link](https://rucio.github.io/documentation/started/main_components/daemons)
+For detailed information about which external systems each daemon communicates with, refer to the [daemon external communications analysis](./5-building-block-views/daemons.md).
+
+Rucio daemons orchestrate data management through a **database-driven workflow pipeline** where each daemon specializes in a specific task and communicates with others through shared database state rather than direct messaging. This creates a robust, scalable architecture:
+
+```
+Rule Created → Judge Evaluator → Conveyor Submitter → Transfer Tool → Conveyor Poller → Conveyor Finisher
+```
 
 ### 6. Runtime view
 
