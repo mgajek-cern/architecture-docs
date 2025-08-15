@@ -65,12 +65,6 @@ TODO(mgajek-cern): Add links if existing
 4. *Daemons* → *Storage/Transfer systems*: Execute the actual data operations
 5. *Daemons* → *Database*: Update completion status
 
-**Integration Patterns:**
-- **Direct Daemon Communication**: Storage, Transfer, Monitoring, Messaging, Email Systems
-- **API/Client Integration**: ~~Workflow Management Systems,~~ Authentication Systems (primarily)
-- **File-based Collection**: Logging Systems
-- **Internal Only**: Database Systems (Rucio's internal DB), Caching Systems (no external integration)
-
 #### Lvl 2
 
 ![Building Block Lvl 2 View](./diagrams/Building%20Block%20Lvl%202%20View.png)
@@ -102,6 +96,8 @@ TODO(mgajek-cern)
 #### Client
 
 TODO(mgajek-cern)
+
+Each daemon has a corresponding CLI application
 
 ### 6. Runtime view
 
