@@ -40,7 +40,7 @@ See [What is Rucio?](https://rucio.github.io/documentation/started/what_is_rucio
 | Database Systems | External System | Transactional relational database management systems that serve as the persistence layer for catalog metadata, system state, and configuration data, including FAIR Data Points providing standardized metadata and data discovery services |
 | Transfer Systems | External System | Data movement services and protocols that handle the physical transfer of files between storage endpoints with reliability, scheduling, and error handling capabilities |
 | Messaging Systems | External System | Messaging services that enable asynchronous communication between distributed components, supporting event-driven architectures, decoupling, reliable message delivery, and catalogue change notifications to external applications |
-| Caching Systems | External System | High-speed data stores that temporarily hold frequently accessed data to reduce latency, decrease load on primary data sources, and improve overall system performance through intelligent data placement algorithms |
+| ~~Caching Systems~~ | ~~External System~~ | ~~High-speed data stores that temporarily hold frequently accessed data to reduce latency, decrease load on primary data sources, and improve overall system performance through intelligent data placement algorithms~~ |
 | Email Systems | External System | SMTP-based notification services that deliver system alerts, status updates, operational notifications, and administrative communications to users and operators for workflow management and incident response |
 
 ---
@@ -64,6 +64,12 @@ TODO(mgajek-cern): Add links if existing
 3. *Daemons* → *Database*: Query for pending rules/tasks
 4. *Daemons* → *Storage/Transfer systems*: Execute the actual data operations
 5. *Daemons* → *Database*: Update completion status
+
+**Integration Patterns:**
+- **Direct Daemon Communication**: Storage, Transfer, Monitoring, Messaging, Email Systems
+- **API/Client Integration**: ~~Workflow Management Systems,~~ Authentication Systems (primarily)
+- **File-based Collection**: Logging Systems
+- **Internal Only**: Database Systems (Rucio's internal DB), Caching Systems (no external integration)
 
 #### Lvl 2
 
