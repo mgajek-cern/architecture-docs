@@ -165,7 +165,7 @@ Refer to [Accounting and quota web page](https://rucio.github.io/documentation/s
 
 ### 9. Architectural decisions
 
-TODO(mgajek-cern): Dedicated folder with .md content and add links if existing
+For comprehensive information about the architectural decision refer to following [folder with markdown files](./9-adrs/)
 
 ### 10. Quality requirements
 
