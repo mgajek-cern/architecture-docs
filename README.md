@@ -67,14 +67,6 @@ For comprehensive information about the solution strategy refer to following [ma
 | Log Collector | External System | Centralized logging infrastructure that aggregates, stores, and provides search capabilities for system events, audit trails, and troubleshooting information |
 | Rucio | Internal System | Scientific data management framework providing declarative policy-based data organization, transfer, and lifecycle management across distributed heterogeneous storage infrastructure |
 
-**Workflow Pattern:**
-
-1. *User/Client* → *REST API*: "Create replication rule: 3 copies on different continents"
-2. *REST API* → *Database*: Records the rule as a database entry
-3. *Daemons* → *Database*: Query for pending rules/tasks
-4. *Daemons* → *Storage/Transfer systems*: Execute the actual data operations
-5. *Daemons* → *Database*: Update completion status
-
 #### Lvl 2
 
 ![Building Block Lvl 2 View](./diagrams/Building%20Block%20Lvl%202%20View.png)
@@ -97,7 +89,29 @@ Rule Created → Judge Evaluator → Conveyor Submitter → Transfer Tool → Co
 
 ### 6. Runtime view
 
-TODO(mgajek-cern): Add links if existing
+#### Data Replication Workflow
+1. *Client CLIs/Web UI* → *REST API*: "Create replication rule: 3 copies on different continents"
+2. *REST API* → *Database*: Records the rule as a database entry
+3. *Daemons* → *Database*: Query for pending rules/tasks
+4. *Daemons* → *Storage/Transfer systems*: Execute the actual data operations (hours/days)
+5. *Daemons* → *Database*: Update completion status
+6. *Daemons* → *Database*: Track transfer progress and report metrics
+7. **Error path**: *Storage/Transfer systems* → *Daemons*: "Transfer failed" → Database updated with error status
+
+#### Authentication Workflow
+1. *Client CLIs/Web UI* → *REST API*: Sends login request with credentials/token
+2. *REST API* → *Authentication System*: Validates credentials
+3. *Authentication System* → *REST API*: Returns success/failure
+4. *REST API* → *Client CLIs/Web UI*: Issues session/token if valid
+5. **Error path**: If validation fails → *REST API* → *Client CLIs/Web UI*: "Authentication denied"
+
+#### Data Query Workflow
+1. *Client CLIs/Web UI* → *REST API*: Requests dataset metadata
+2. *REST API* → *Database*: Retrieves dataset info
+3. *Database* → *REST API*: Returns query result
+4. *REST API* → *Client CLIs/Web UI*: Sends dataset details back to user
+5. **Error path**: If dataset not found → *Database* → *REST API* → *Client CLIs/Web UI*: "Dataset not found"
+
 
 ### 7. Deployment view
 
