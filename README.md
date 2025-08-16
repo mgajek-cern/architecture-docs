@@ -49,7 +49,7 @@ See [What is Rucio?](https://rucio.github.io/documentation/started/what_is_rucio
 
 ### 4. Solution strategy
 
-TODO(mgajek-cern): Add links if existing
+For comprehensive information about the solution strategy refer to following [markdown file](./4-solution-strategy/solution-strategy.md)
 
 ### 5. Building Block views
 
@@ -111,6 +111,8 @@ TODO(mgajek-cern): Add links if existing
 * **Production** – multi-node, multi-site deployments for live operations with continuous security monitoring and incident response.
 
 #### Deployment strategies
+
+TODO(mgajek-cern): Currently when running the k8s-tutorial we could not find any database tables being created. The alembic does not do any auto migrations in the kubernetes based setups. Lets check wether we need to do any manual migrations with alembic first using kubectl exect -it <rucio-server container in pod (note a side car container does also exist)>
 
 **Deployment strategies** such as **Blue-Green** use staging as the inactive environment to validate functionality, integration, performance, security, and release readiness before switching traffic. **Canary Releases** leverage QA/staging to ensure builds pass all required validations—including security scans—before gradual rollout to production. **GitOps** manages all environments from version-controlled definitions, enabling controlled rolling updates with automated rollback on failure, including security policy enforcement.
 
