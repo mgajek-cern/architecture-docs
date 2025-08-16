@@ -64,7 +64,7 @@ For comprehensive information about the solution strategy refer to following [ma
 | Client CLIs | Internal Component | User command-line tools (bin/rucio and bin/rucio-admin) that interact with Rucio through the REST API for data operations like upload, download, and management |
 | Daemon CLIs | Internal Component | System administration command-line tools where each daemon has a corresponding CLI application that bypasses the API and accesses the database directly with the same logic as daemon processes |
 | Daemons | Internal Component | Background processes that orchestrate data management through a database-driven workflow pipeline, handling asynchronous tasks like rule evaluation, data transfers, and cleanup operations |
-| Log Collector | External System | Centralized logging infrastructure that aggregates, stores, and provides search capabilities for system events, audit trails, and troubleshooting information |
+| Log Collector | External System | Centralized logging infrastructure that aggregates and forwards logs from Rucio components through polling, file monitoring, or direct ingestion; provides storage and search capabilities for system events, audit trails, and troubleshooting information |
 | Rucio | Internal System | Scientific data management framework providing declarative policy-based data organization, transfer, and lifecycle management across distributed heterogeneous storage infrastructure |
 
 #### Lvl 2
