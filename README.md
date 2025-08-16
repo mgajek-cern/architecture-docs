@@ -112,6 +112,9 @@ Rule Created → Judge Evaluator → Conveyor Submitter → Transfer Tool → Co
 4. *REST API* → *Client CLIs/Web UI*: Sends dataset details back to user
 5. **Error path**: If dataset not found → *Database* → *REST API* → *Client CLIs/Web UI*: "Dataset not found"
 
+#### Database Migration Workflows
+
+The database migration workflows can be found in following [markdown file](./6-runtime-view/db-migration-workflows.md).
 
 ### 7. Deployment view
 
