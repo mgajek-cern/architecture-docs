@@ -57,6 +57,16 @@ TODO(mgajek-cern): Add links if existing
 
 ![Building Block Lvl 1 View](./diagrams/Building%20Block%20Lvl%201%20View.png)
 
+| Name | Type | Description |
+| --- | --- | --- |
+| REST API | Internal Component | HTTPs interface providing programmatic access to Rucio functionality through standardized endpoints for authentication, data management, and system operations |
+| Web UI | Internal Component | Javascript-based web user interface for browser-based interaction with Rucio services |
+| Client CLIs | Internal Component | User command-line tools (bin/rucio and bin/rucio-admin) that interact with Rucio through the REST API for data operations like upload, download, and management |
+| Daemon CLIs | Internal Component | System administration command-line tools where each daemon has a corresponding CLI application that bypasses the API and accesses the database directly with the same logic as daemon processes |
+| Daemons | Internal Component | Background processes that orchestrate data management through a database-driven workflow pipeline, handling asynchronous tasks like rule evaluation, data transfers, and cleanup operations |
+| Log Collector | External System | Centralized logging infrastructure that aggregates, stores, and provides search capabilities for system events, audit trails, and troubleshooting information |
+| Rucio | Internal System | Scientific data management framework providing declarative policy-based data organization, transfer, and lifecycle management across distributed heterogeneous storage infrastructure |
+
 **Workflow Pattern:**
 
 1. *User/Client* → *REST API*: "Create replication rule: 3 copies on different continents"
@@ -84,22 +94,6 @@ Rucio daemons orchestrate data management through a **database-driven workflow p
 ```
 Rule Created → Judge Evaluator → Conveyor Submitter → Transfer Tool → Conveyor Poller → Conveyor Finisher
 ```
-
-#### REST API
-
-TODO(mgajek-cern)
-
-#### Web UI
-
-TODO(mgajek-cern)
-
-#### Client CLIs
-
-Client CLIs (bin/rucio and bin/rucio-admin) interact with Rucio through the REST API
-
-#### Daemon CLIs
-
-Each daemon has a corresponding CLI application that bypasses the API and accesses the database directly with the same logic as daemon processes.
 
 ### 6. Runtime view
 
