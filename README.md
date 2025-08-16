@@ -95,9 +95,7 @@ TODO(mgajek-cern)
 
 #### Client
 
-TODO(mgajek-cern)
-
-Each daemon has a corresponding CLI application
+Client CLIs (bin/rucio and bin/rucio-admin) interact with Rucio through the REST API, while daemon CLIs bypass the API and access the database directly with the same logic as daemon processes.
 
 ### 6. Runtime view
 
