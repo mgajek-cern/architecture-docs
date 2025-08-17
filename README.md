@@ -122,10 +122,10 @@ The database migration workflows can be found in following [markdown file](./6-r
 
 #### Environments
 
-* **Development** – for active feature work and integration (single-node `docker-compose` or Kubernetes). Early static code analysis and security scans are applied here.
-* **QA** – focused on functional, integration, regression, and security testing (including vulnerability scanning and dependency checks), often with mock or partial production data. Ensures features meet requirements and security standards before moving forward.
-* **Staging** – a near-identical replica of production for final acceptance, load, security, and release validation under production-like conditions. Often the last checkpoint before deployment, including penetration testing and compliance checks.
-* **Production** – multi-node, multi-site deployments for live operations with continuous security monitoring and incident response.
+- **Development** – for active feature work and integration (single-node `docker-compose` or Kubernetes). Early static code analysis and security scans are applied here.
+- **QA** – focused on functional, integration, regression, and security testing (including vulnerability scanning and dependency checks), often with mock or partial production data. Ensures features meet requirements and security standards before moving forward.
+- **Staging** – a near-identical replica of production for final acceptance, load, security, and release validation under production-like conditions. Often the last checkpoint before deployment, including penetration testing and compliance checks.
+- **Production** – multi-node, multi-site deployments for live operations with continuous security monitoring and incident response.
 
 #### Deployment strategies
 
@@ -186,7 +186,9 @@ For comprehensive information about the architectural decision refer to followin
 
 ### 10. Quality requirements
 
-[Overview of quality requirements can be found here](./10-quality-requirements/quality-requirements.md)
+[Overview of quality requirements with SLA/SLO/SLI framework can be found here](./10-quality-requirements/quality-requirements.md)
+
+This section defines measurable quality requirements using Service Level Agreements (SLAs), Service Level Objectives (SLOs), and Service Level Indicators (SLIs) to ensure system reliability, performance, and maintainability standards.
 
 ### 11. Risks & technical debt
 
@@ -198,12 +200,17 @@ TODO(mgajek-cern): Add links if existing
 
 #### Testing definitions for different environments
 
-* **Functional/API testing** – verifies each feature or API behaves as expected.
-* **Regression testing** – re-runs existing tests automatically on code changes to catch breaks early.
-* **Integration testing** – verifies components/services interact correctly.
-* **Acceptance testing** – final check that system meets business and security requirements before release.
-* **Load testing** – measures performance under expected or heavy usage.
-* **Security testing** – includes static analysis, vulnerability scans, penetration tests, and compliance validation across environments.
-* **Release validation** – confirms the build is correct, stable, secure, and production-ready.
+- **Functional/API testing** – verifies each feature or API behaves as expected.
+- **Regression testing** – re-runs existing tests automatically on code changes to catch breaks early.
+- **Integration testing** – verifies components/services interact correctly.
+- **Acceptance testing** – final check that system meets business and security requirements before release.
+- **Load testing** – measures performance under expected or heavy usage.
+- **Security testing** – includes static analysis, vulnerability scans, penetration tests, and compliance validation across environments.
+- **Release validation** – confirms the build is correct, stable, secure, and production-ready.
 
+#### SLA/SLO/SLI Framework
+
+- **SLA (Service Level Agreement):** External commitments to users/customers (e.g., 99.9% uptime)
+- **SLO (Service Level Objective):** Internal targets to meet SLAs (e.g., 99.95% uptime target)
+- **SLI (Service Level Indicator):** Measurable metrics that track SLO performance (e.g., actual uptime percentage)
 
