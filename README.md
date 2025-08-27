@@ -180,7 +180,7 @@ TODO(mgajek-cern): add diagram, links, some content
 
 ### 8. Crosscutting concepts
 
-Refer to [Accounting and quota web page](https://rucio.github.io/documentation/started/concepts/accounting_and_quota) and subsequent sections.
+Refer to [Accounting and quota web page](https://rucio.github.io/documentation/started/concepts/accounting_and_quota) and subsequent sections. Also checkout newly added [concepts here](./8-concepts).
 
 ### 9. Architectural decisions
 
