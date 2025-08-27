@@ -1,6 +1,7 @@
 ## 2. Credit Management System Integration (WP4)
 
 **Technical Concept:** External quota system with real-time credit enforcement
+
 **Key Files to Modify:**
 - `lib/rucio/core/account_limit.py` - Add external credit system interface
 *// ****Medium complexity***** - Requires new credit validation functions but builds on existing account limit infrastructure**
@@ -14,6 +15,7 @@
 *// ****Low complexity***** - Standard table additions but requires careful transaction design for ACID compliance**
 - `lib/rucio/web/rest/flaskapi/v1/accounts.py` - Credit balance API endpoints
 *// ****Low complexity***** - Simple REST endpoint additions following existing patterns**
+
 **New Components Needed:**
 - External credit API client module
 *// ****High complexity***** - Must handle multiple credit providers, circuit breaking, retry logic, and API versioning**
