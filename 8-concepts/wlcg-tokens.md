@@ -1,3 +1,7 @@
+Ideally checkout previous concept on [rucio-daemons-using-transfer-tools](./rucio-daemons-using-transfer-tools.md).
+
+---
+
 # WLCG Tokens
 
 ## Token Schema and Specification

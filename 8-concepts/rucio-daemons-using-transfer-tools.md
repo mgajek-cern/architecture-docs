@@ -1,3 +1,7 @@
+Ideally checkout previous concept on [transfer-tool-interface](./transfer-tool-interface.md).
+
+---
+
 ### Rucio Daemons using Transfer Tools (FTS3, Globus)
 
 The source code to refer to can be found [here](https://github.com/rucio/rucio/tree/master/lib/rucio/daemons).
