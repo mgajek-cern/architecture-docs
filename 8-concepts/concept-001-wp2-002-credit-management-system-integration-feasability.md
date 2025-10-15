@@ -1,3 +1,5 @@
+**DEPRECATED**
+
 ## 2. Credit Management System Integration (WP4)
 
 **Technical Concept:** External quota system with real-time credit enforcement

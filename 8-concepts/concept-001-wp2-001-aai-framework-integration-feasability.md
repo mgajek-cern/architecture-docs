@@ -1,3 +1,5 @@
+**DEPRECATED**
+
 ## **1. AAI Framework Integration (WP4)**
 
 **Technical Concept:** Multi-issuer federated authentication with fine-grained authorization

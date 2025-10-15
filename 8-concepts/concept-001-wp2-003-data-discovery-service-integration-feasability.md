@@ -1,3 +1,5 @@
+**DEPRECATED**
+
 ## 3. Data Discovery Service Integration (Task 2.3)
 
 **Technical Concept:** Popularity-driven intelligent caching with federated metadata
