@@ -117,6 +117,10 @@ Rule Created → Judge Evaluator → Conveyor Submitter → Transfer Tool → Co
 
 The database migration workflows can be found in following [markdown file](./6-runtime-view/db-migration-workflows.md).
 
+#### Third-Party-Copy Sequence
+
+The Third-Party-Copy Sequence illustrating interactions between Rucio, FTS and two RSEs for large file transfers can be found [here](./6-runtime-view/third-party-copy-sequence.md).
+
 ### 7. Deployment view
 
 *To be defined with stakeholders – example below.*
