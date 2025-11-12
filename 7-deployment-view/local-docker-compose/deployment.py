@@ -1,21 +1,15 @@
 #!/usr/bin/env python3
 """
-Rucio Development Environment Deployment Diagram
-Creates a visual representation of the Rucio dev setup with all service components
+Complete Rucio Development Environment Deployment Diagram
+Based on the full Docker Compose setup including all optional services
 """
 
 from diagrams import Diagram, Cluster, Edge
 from diagrams.onprem.database import PostgreSQL, MySQL
-from diagrams.onprem.inmemory import Redis
-from diagrams.onprem.monitoring import Grafana, Prometheus
-from diagrams.onprem.network import Internet
+from diagrams.onprem.monitoring import Grafana
 from diagrams.onprem.client import Users
 from diagrams.onprem.queue import ActiveMQ
-from diagrams.generic.blank import Blank
-from diagrams.generic.network import Router
-from diagrams.generic.compute import Rack
 from diagrams.generic.storage import Storage
-from diagrams.programming.language import Python
 from diagrams.onprem.compute import Server
 
 # Configure diagram attributes
@@ -35,7 +29,7 @@ edge_attr = {
     "fontsize": "10"
 }
 
-with Diagram("Rucio Development Environment", 
+with Diagram("Rucio Development Environment - Complete", 
              filename="./deployment",
              show=False,
              graph_attr=graph_attr,
@@ -44,81 +38,99 @@ with Diagram("Rucio Development Environment",
              direction="TB"):
     
     # Users
-    users = Users("Developers &\nTesting Users")
+    users = Users("Developers")
     
     # Core Rucio System
     with Cluster("Core Rucio Services"):
-        rucio_dev = Server("Rucio Server\nrucio-dev\n8443→443")
-        rucio_db = PostgreSQL("PostgreSQL\nRucio DB\n5432")
-        daemons = Python("Rucio Daemons\nBackground Services")
+        rucio_dev = Server("Rucio Server")
+        rucio_client = Server("Rucio Client")
         
-    # Storage Services
+    # Database Options
+    with Cluster("Database Options"):
+        rucio_db = PostgreSQL("PostgreSQL")
+        mysql8 = MySQL("MySQL 8")
+        oracle_db = Server("Oracle XE")
+        
+    # Storage Services (RSEs)
     with Cluster("Storage Services (RSEs)"):
-        xrootd1 = Storage("XRootD-1\ndev-xrd1\n1094")
-        xrootd2 = Storage("XRootD-2\ndev-xrd2\n1095") 
-        xrootd3 = Storage("XRootD-3\ndev-xrd3\n1096")
-        xrootd4 = Storage("XRootD-4\ndev-xrd4\n1097")
-        xrootd5 = Storage("XRootD-5\ndev-xrd5\n1098/8098")
-        webdav = Server("WebDAV\ndev-web1\n8099")
-        ssh_server = Server("SSH Transfer\ndev-ssh1\n2222→22")
+        xrd_cluster = Storage("XRootD Cluster")
+        webdav = Server("WebDAV")
+        ssh_server = Server("SSH Transfer")
+        minio = Server("MinIO S3")
         
     # Transfer Management
     with Cluster("File Transfer Service"):
-        fts = Server("FTS Server\ndev-fts\n8446/8449")
-        fts_db = MySQL("FTS MySQL\nDB\n3306")
+        fts = Server("FTS Server")
+        fts_db = MySQL("FTS Database")
         
-    # Messaging (for specific daemon operations)
-    with Cluster("Messaging & Events"):
-        activemq = ActiveMQ("ActiveMQ\nMessage Broker\n61613")
+    # IAM & Authentication
+    with Cluster("Identity & Access Management"):
+        keycloak = Server("Keycloak")
+        indigo_iam = Server("INDIGO IAM")
+        iam_db = MySQL("IAM Database")
+        
+    # Messaging & Events
+    with Cluster("Messaging"):
+        activemq = ActiveMQ("ActiveMQ")
         
     # Monitoring Stack
-    with Cluster("Monitoring & Metrics"):
-        influxdb = Server("InfluxDB\nTime Series DB\n8086")
-        graphite = Server("Graphite\nMetrics DB\n8080")
-        grafana = Grafana("Grafana\nDashboards\n3000")
+    with Cluster("Monitoring"):
+        grafana = Grafana("Grafana")
+        influxdb = Server("InfluxDB")
+        graphite = Server("Graphite")
         
-    # Logging Stack  
+    # Logging & Search
     with Cluster("Logging & Analytics"):
-        logstash = Server("Logstash\nLog Processor\n5044")
-        elasticsearch = Server("Elasticsearch\nSearch Engine\n9200/9300")
-        kibana = Server("Kibana\nLog Analytics\n5601")
+        kibana = Server("Kibana")
+        logstash = Server("Logstash")
+        elasticsearch = Server("Elasticsearch")
+        
+    # Metadata Services
+    with Cluster("External Metadata"):
+        mongo = Server("MongoDB")
+        postgres_meta = PostgreSQL("PostgreSQL Meta")
+        elasticsearch_meta = Server("Elasticsearch Meta")
     
-    # User interactions
-    users >> Edge(label="HTTPS:8443", color="blue") >> rucio_dev
+    # Connections (no descriptions as requested)
+    users >> rucio_dev
     
-    # Core Rucio connections (primary communication via database)
-    rucio_dev >> Edge(label="SQL", color="red") >> rucio_db
-    daemons >> Edge(label="database ops\n(primary)", color="red") >> rucio_db
+    # Core database connections
+    rucio_dev >> rucio_db
     
     # Storage connections
-    rucio_dev >> Edge(label="XRootD", color="green") >> [xrootd1, xrootd2, xrootd3, xrootd4, xrootd5]
-    rucio_dev >> Edge(label="WebDAV", color="green") >> webdav
-    rucio_dev >> Edge(label="SSH", color="green") >> ssh_server
+    rucio_dev >> [xrd_cluster, webdav, ssh_server, minio]
     
     # Transfer service
-    rucio_dev >> Edge(label="FTS control", color="orange") >> fts
-    fts >> Edge(label="SQL", color="red") >> fts_db
+    rucio_dev >> fts
+    fts >> fts_db
     
-    # Messaging (secondary, specific operations)
-    rucio_dev >> Edge(label="events", color="purple", style="dashed") >> activemq
-    daemons >> Edge(label="consume events\n(secondary)", color="purple", style="dashed") >> activemq
+    # IAM connections
+    rucio_dev >> [keycloak, indigo_iam]
+    keycloak >> iam_db
+    indigo_iam >> iam_db
+    
+    # Messaging
+    rucio_dev >> activemq
     
     # Monitoring
-    rucio_dev >> Edge(label="metrics", color="gray") >> influxdb
-    rucio_dev >> Edge(label="metrics", color="gray") >> graphite
-    influxdb >> Edge(color="gray") >> grafana
-    graphite >> Edge(color="gray") >> grafana
+    rucio_dev >> [influxdb, graphite]
     
     # Logging
-    rucio_dev >> Edge(label="logs", color="brown") >> logstash
-    logstash >> Edge(color="brown") >> elasticsearch
-    elasticsearch >> Edge(color="brown") >> kibana
+    rucio_dev >> logstash
+    logstash >> elasticsearch
+    elasticsearch >> kibana
+    
+    # External metadata
+    rucio_dev >> [mongo, postgres_meta, elasticsearch_meta]
 
-print("Rucio development environment diagram generated!")
-print("Components:")
-print("- Core: Rucio server + PostgreSQL database")
-print("- Storage: 5x XRootD + WebDAV + SSH transfer endpoints") 
-print("- Transfer: FTS3 with MySQL backend")
-print("- Messaging: ActiveMQ for daemon communication")
-print("- Monitoring: InfluxDB + Graphite + Grafana")
-print("- Logging: ELK stack (Elasticsearch + Logstash + Kibana)")
+print("Complete Rucio development environment diagram generated!")
+print("Includes all services from Docker Compose:")
+print("- Core: Rucio server + client containers")
+print("- Databases: PostgreSQL, MySQL, Oracle options")
+print("- Storage: XRootD, WebDAV, SSH, MinIO S3")
+print("- IAM: Keycloak + INDIGO IAM with shared database")
+print("- Transfer: FTS3 with MySQL backend") 
+print("- Messaging: ActiveMQ")
+print("- Monitoring: Grafana + InfluxDB + Graphite")
+print("- Logging: ELK stack")
+print("- External metadata: MongoDB, PostgreSQL, Elasticsearch")
