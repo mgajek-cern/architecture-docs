@@ -172,8 +172,8 @@ For comprehensive information about the deployment view refer to diagrams in fol
 
 For comprehensive information about the deployment view refer to diagrams in following directories:
 
-- [rucio-k8s-sme](./7-deployment-view/rucio-k8s-sme/)
-- [rucio-k8s-sme-community-focused](./7-deployment-view/rucio-k8s-sme-community-focused/)
+- [Current CERN-Specific Implementation](./7-deployment-view/rucio-k8s-sme/)
+- [Proposed Generic Cloud-Native Approach](./7-deployment-view/rucio-k8s-sme-community-focused/)
 
 #### Production environments - Multi-Site (Kubernetes Federation)
 
