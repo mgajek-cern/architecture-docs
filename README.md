@@ -13,6 +13,40 @@ Its primary goal is to provide a minimal and focused understanding of the system
 - [arc42 overview](https://arc42.org/overview)
 - [Markdown Architectural Decision Records](https://adr.github.io/madr/)
 
+## Preconditions
+
+Sure! Here’s an updated version of your **Preconditions** section — cleaner, clearer, and formatted for readability and reliability across systems:
+
+---
+
+## Preconditions
+
+### 1. Install Python dependencies
+
+```bash
+pip install diagrams
+```
+
+### 2. Install Graphviz
+
+**macOS:**
+
+```bash
+brew install graphviz
+```
+
+**Ubuntu/Debian:**
+
+```bash
+sudo apt-get install -y graphviz
+```
+
+**Windows (using Chocolatey):**
+
+```bash
+choco install graphviz
+```
+
 ## arc42 chapters
 
 TODO(mgajek-cern): Eventually setup Jekyll based project or use other static site generator tool 
@@ -134,8 +168,6 @@ The Third-Party-Copy Sequence illustrating interactions between Rucio, FTS and t
 
 #### Deployment strategies
 
-TODO(mgajek-cern): Currently when running the k8s-tutorial we could not find any database tables being created. The alembic does not do any auto migrations in the kubernetes based setups. Lets check wether we need to do any manual migrations with alembic first using kubectl exect -it <rucio-server container in pod (note a side car container does also exist)>
-
 **Deployment strategies** such as **Blue-Green** use staging as the inactive environment to validate functionality, integration, performance, security, and release readiness before switching traffic. **Canary Releases** leverage QA/staging to ensure builds pass all required validations—including security scans—before gradual rollout to production. **GitOps** manages all environments from version-controlled definitions, enabling controlled rolling updates with automated rollback on failure, including security policy enforcement.
 
 #### Development environment – Single Node (docker-compose)
@@ -175,7 +207,7 @@ For more details, see the [Using the Standard Environment](https://rucio.github.
 
 #### Development, QA, Staging and Production environments - Multi-Node (Kubernetes)
 
-TODO(mgajek-cern): add diagram, links, some content
+For comprehensive information about the deployment view refer to diagrams in following [sub-directory](./7-deployment-view/).
 
 #### Production environments - Multi-Site (Kubernetes Federation)
 
