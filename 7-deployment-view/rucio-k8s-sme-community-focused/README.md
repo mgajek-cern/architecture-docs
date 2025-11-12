@@ -4,6 +4,8 @@
 
 A cloud-native, vendor-agnostic deployment approach designed for broader community adoption while maintaining operational excellence.
 
+![](./deployment.png)
+
 ## Architecture Components
 
 ### GitOps Control Plane

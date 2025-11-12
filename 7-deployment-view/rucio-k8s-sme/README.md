@@ -4,6 +4,8 @@
 
 The current Rucio deployment implements a GitOps-based approach tightly integrated with CERN infrastructure and services.
 
+![](./deployment.png)
+
 ## Architecture Components
 
 ### Control Plane
