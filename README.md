@@ -15,12 +15,6 @@ Its primary goal is to provide a minimal and focused understanding of the system
 
 ## Preconditions
 
-Sure! Here’s an updated version of your **Preconditions** section — cleaner, clearer, and formatted for readability and reliability across systems:
-
----
-
-## Preconditions
-
 ### 1. Install Python dependencies
 
 ```bash
