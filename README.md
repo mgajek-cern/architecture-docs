@@ -172,42 +172,14 @@ The Third-Party-Copy Sequence illustrating interactions between Rucio, FTS and t
 
 #### Development environment – Single Node (docker-compose)
 
-```mermaid
-graph TD
-
-%% Core Rucio System
-Rucio[rucio-dev<br>8443->443] -->|connects to| RucioDB[PostgreSQL<br>5432]
-Rucio -->|communicates with| XRootD1[dev-xrd1<br>1094]
-Rucio -->|communicates with| XRootD2[dev-xrd2<br>1095]
-Rucio -->|communicates with| XRootD3[dev-xrd3<br>1096]
-Rucio -->|communicates with| XRootD4[dev-xrd4<br>1097]
-Rucio -->|communicates with| XRootD5[dev-xrd5<br>1098/8098]
-Rucio -->|WebDAV| WebDAV[dev-web1<br>8099]
-Rucio -->|SSH Transfer| SSH[dev-ssh1<br>2222->22]
-Rucio -->|FTS Control| FTS[dev-fts<br>8446/8449]
-FTS --> FTSDB[MySQL<br>3306]
-
-%% Messaging
-Rucio --> ActiveMQ[ActiveMQ<br>61613]
-ActiveMQ --> Daemons[Various Daemons]
-
-%% Monitoring & Metrics
-Rucio --> InfluxDB[InfluxDB<br>8086]
-InfluxDB --> Grafana[Grafana<br>3000]
-Rucio --> Graphite[Graphite<br>8080]
-Graphite --> Grafana
-
-%% Logging
-Rucio --> Logstash[Logstash<br>5044]
-Logstash --> Elasticsearch[Elasticsearch<br>9200/9300]
-Elasticsearch --> Kibana[Kibana<br>5601]
-```
-
-For more details, see the [Using the Standard Environment](https://rucio.github.io/documentation/operator/setting_up_demo#using-the-standard-environment) guide.
+For comprehensive information about the deployment view refer to diagrams in following [directory](./7-deployment-view/local-docker-compose/).
 
 #### Development, QA, Staging and Production environments - Multi-Node (Kubernetes)
 
-For comprehensive information about the deployment view refer to diagrams in following [sub-directory](./7-deployment-view/).
+For comprehensive information about the deployment view refer to diagrams in following directories:
+
+- [rucio-k8s-sme](./7-deployment-view/rucio-k8s-sme/)
+- [rucio-k8s-sme-community-focused](./7-deployment-view/rucio-k8s-sme-community-focused/)
 
 #### Production environments - Multi-Site (Kubernetes Federation)
 
