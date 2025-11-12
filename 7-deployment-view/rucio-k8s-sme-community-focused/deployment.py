@@ -80,7 +80,6 @@ with Diagram("Generic Rucio Deployment - Stateless Cloud Native",
         # Rucio Services
         with Cluster("Rucio Applications"):
             rucio_server = Deployment("Rucio Server")
-            rucio_auth = Deployment("Rucio Auth")
             rucio_webui = Deployment("Rucio WebUI")
             
         # Background Processing
@@ -114,7 +113,7 @@ with Diagram("Generic Rucio Deployment - Stateless Cloud Native",
     ingress >> Edge(color="blue") >> [rucio_webui, rucio_server]
     
     # GitOps Flow
-    gitops >> Edge(label="deploy", color="green") >> [rucio_server, rucio_auth, rucio_webui]
+    gitops >> Edge(label="deploy", color="green") >> [rucio_server, rucio_webui]
     gitops >> Edge(label="deploy", color="green") >> [judge_services, conveyor_services]
     config_mgmt >> Edge(style="dashed", label="config", color="orange") >> gitops
     
@@ -128,7 +127,7 @@ with Diagram("Generic Rucio Deployment - Stateless Cloud Native",
     external_secrets >> Edge(style="dashed", label="secrets", color="orange") >> gitops
     
     # Authentication
-    rucio_auth >> Edge(label="OIDC", color="purple") >> oidc_provider
+    rucio_server >> Edge(label="OIDC", color="purple") >> oidc_provider
     rucio_webui >> Edge(label="OIDC", color="purple") >> oidc_provider
     
     # Database Access
