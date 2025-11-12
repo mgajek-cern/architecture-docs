@@ -33,7 +33,7 @@ node_attr = {
     "fontname": "Helvetica"
 }
 
-with Diagram("Generic Rucio Deployment - Cloud Native Approach", 
+with Diagram("Generic Rucio Deployment - Stateless Cloud Native", 
              filename="./generic-rucio-deployment",
              show=False,
              graph_attr=graph_attr,
@@ -95,10 +95,13 @@ with Diagram("Generic Rucio Deployment - Cloud Native Approach",
             monitoring = Prometheus("Observability Stack\n(Prometheus/Grafana)")
             cache = Redis("Cache Layer\n(Redis/optional)")
             
-    # Data Layer
-    with Cluster("Data & Storage"):
-        database = PostgreSQL("Database\n(PostgreSQL/MySQL)")
-        storage_class = PersistentVolume("Storage Classes\nPersistent Volumes")
+    # External Managed Services
+    with Cluster("External Managed Services"):
+        database = PostgreSQL("Managed Database\n(RDS/CloudSQL/Azure DB)")
+        
+    # Cluster Storage (Stateless)
+    with Cluster("Cluster Storage (Ephemeral)"):
+        storage_class = PersistentVolume("Ephemeral Storage\n(Logs/Cache only)")
         
     # Storage Elements (Generic)
     with Cluster("Storage Elements (RSEs)"):
@@ -143,8 +146,10 @@ with Diagram("Generic Rucio Deployment - Cloud Native Approach",
 print("Generic Rucio deployment diagram generated!")
 print("Key improvements for community adoption:")
 print("- Removed CERN-specific dependencies (Vault/AVP)")
-print("- Added flexible secret management options")
+print("- Added flexible secret management options") 
 print("- Included cert-manager for automated TLS")
 print("- Generic OIDC provider support")
 print("- Cloud-native storage options")
 print("- Standard ingress patterns")
+print("- Stateless cluster design with external managed database")
+print("- Ephemeral storage only (no persistent state in cluster)")
