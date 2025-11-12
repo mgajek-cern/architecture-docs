@@ -32,10 +32,17 @@ A cloud-native, vendor-agnostic deployment approach designed for broader communi
 - **Identity Provider**: Generic OIDC (Keycloak, Auth0, Okta, etc.)
 - **Transfer Service**: FTS3 or alternative transfer solutions
 
-### Storage Architecture
-- **Object Storage RSEs**: S3-compatible APIs (AWS S3, MinIO, Ceph)
-- **POSIX Storage RSEs**: NFS, CephFS for traditional workflows
-- **Archive Storage RSEs**: Cloud archive tiers (Glacier, Coldline) or tape
+### Storage Architecture (Hybrid Cloud/On-Premises)
+- **Object Storage RSEs**: Cloud (S3, GCS, Azure Blob) or on-premises (MinIO, Ceph, OpenStack Swift)
+- **POSIX Storage RSEs**: Traditional HPC storage (Lustre, GPFS, BeeGFS) or shared filesystems (NFS, CephFS)
+- **Archive Storage RSEs**: Enterprise tape systems (dCache, XRootD) or cloud archive tiers (Glacier, Coldline)
+- **High-Performance RSEs**: Site-specific optimized storage for data-intensive workloads
+
+### Data Federation Capabilities
+- **Protocol Support**: S3, WebDAV, NFS, HTTP, XRootD, GridFTP, dCache protocols
+- **Third-Party Copy**: FTS3, HTTP-TPC, XRootD-TPC for efficient site-to-site transfers
+- **Data Staging**: Support for hierarchical storage with automated staging policies
+- **Multi-Site Access**: Unified namespace across geographically distributed storage systems
 
 ## Key Design Principles
 
