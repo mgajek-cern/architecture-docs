@@ -6,6 +6,19 @@ A cloud-native, vendor-agnostic deployment approach designed for broader communi
 
 ![](./deployment.png)
 
+## Usage
+```bash
+# Generate the deployment.png deployment diagram seen above
+pip install diagrams
+python3 deployment.py
+```
+
+This creates a visual representation of the cloud-native deployment, useful for:
+- **Community Adoption**: Understanding vendor-agnostic deployment patterns
+- **Migration Planning**: Comparing CERN-specific vs generic approaches
+- **Architecture Design**: Implementing Rucio on diverse infrastructure platforms
+- **Documentation**: Reference for cloud-native Rucio deployment strategies
+
 ## Architecture Components
 
 ### GitOps Control Plane

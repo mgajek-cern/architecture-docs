@@ -6,6 +6,19 @@ The current Rucio deployment implements a GitOps-based approach tightly integrat
 
 ![](./deployment.png)
 
+## Usage
+```bash
+# Generate the deployment.png deployment diagram seen above
+pip install diagrams
+python3 deployment.py
+```
+
+This creates a visual representation of the CERN-specific deployment, useful for:
+- **Operations**: Understanding CERN infrastructure dependencies and integration points
+- **Onboarding**: Learning the production Rucio-IT SME architecture
+- **Troubleshooting**: Visualizing GitOps workflows and Vault secret management
+- **Documentation**: Reference architecture for CERN-based Rucio deployments
+
 ## Architecture Components
 
 ### Control Plane

@@ -6,6 +6,20 @@ This diagram visualizes the complete Rucio development environment as deployed u
 
 ![](./deployment.png)
 
+## Usage
+
+```bash
+# Generate the deployment.png deployment diagram seen above
+pip install diagrams
+python3 deployment.py
+```
+
+This creates a visual representation of the development environment, useful for:
+- **Onboarding**: Understanding the complete Rucio ecosystem and daemon coordination patterns
+- **Development**: Identifying service dependencies and database-centric communication patterns
+- **Troubleshooting**: Visualizing data flow and integration points
+- **Documentation**: Providing architectural context for development teams
+
 ## Architecture Components
 
 ### Core Services
@@ -68,20 +82,6 @@ The environment supports diverse storage protocols commonly used in research com
 - **Dual metrics backends**: Support for both modern (InfluxDB) and traditional (Graphite) systems
 - **Comprehensive logging**: Full ELK stack for troubleshooting and analysis
 - **Event tracking**: ActiveMQ integration for external notifications and specific real-time events
-
-## Usage
-
-```bash
-# Generate the deployment diagram
-pip install diagrams
-python3 deployment.py
-```
-
-This creates a visual representation of the development environment, useful for:
-- **Onboarding**: Understanding the complete Rucio ecosystem and daemon coordination patterns
-- **Development**: Identifying service dependencies and database-centric communication patterns
-- **Troubleshooting**: Visualizing data flow and integration points
-- **Documentation**: Providing architectural context for development teams
 
 ## Reference
 
