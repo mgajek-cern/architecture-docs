@@ -34,7 +34,7 @@ node_attr = {
 }
 
 with Diagram("Generic Rucio Deployment - Stateless Cloud Native", 
-             filename="./generic-rucio-deployment",
+             filename="./deployment",
              show=False,
              graph_attr=graph_attr,
              node_attr=node_attr,

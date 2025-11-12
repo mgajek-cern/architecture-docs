@@ -40,7 +40,7 @@ edge_attr = {
 }
 
 with Diagram("Rucio IT Deployment Architecture", 
-             filename="./rucio-k8s-sme-deployment", 
+             filename="./deployment", 
              show=False,
              graph_attr=graph_attr,
              node_attr=node_attr,
