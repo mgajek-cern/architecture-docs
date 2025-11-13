@@ -74,7 +74,7 @@ with Diagram("Generic Rucio Deployment - Stateless Cloud Native",
         
         # Ingress Layer
         with Cluster("Ingress & Load Balancing"):
-            ingress = Ingress("Ingress Controller\n(nginx/traefik)")
+            ingress = Ingress("Ingress Controller\n(envoy/traefik)")
             tls_certs = Pod("TLS Certificates\n(auto-renewed)")
             
         # Rucio Services

@@ -33,8 +33,14 @@ This creates a visual representation of the cloud-native deployment, useful for:
 - **Rucio WebUI**: Configurable branding and identity integration
 - **Rucio Daemons**: Horizontally scalable background processing
 
-**Cloud-Native Infrastructure:**
-- **Ingress Controller**: nginx/traefik for external traffic routing
+- **Ingress Controller**: envoy/traefik for external traffic routing. **NOTE:** [Ingress NGINX Retirement](https://www.kubernetes.dev/blog/2025/11/12/ingress-nginx-retirement/). Common options: 
+    - Envoy Gateway (CNCF, modern, feature-rich)
+    - Istio Gateway (service mesh + ingress)
+    - Traefik (simple, widely used)
+    - Kong Gateway (enterprise features)
+    - HAProxy Ingress (high performance)
+    - Contour (Envoy-based, VMware-backed)
+    - Cloud provider ingress (AWS ALB, GKE, Azure)
 - **cert-manager**: Automated TLS certificate lifecycle (Let's Encrypt/Private CA)
 - **External DNS**: Provider-agnostic DNS automation
 - **Connection Pooling**: PGBouncer for database efficiency
