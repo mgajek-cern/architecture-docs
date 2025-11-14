@@ -164,6 +164,102 @@ Based on industry best practices from:
 - [CDF Best Practices - CI/CD](https://bestpractices.cd.foundation/)
 - [NIST DevSecOps Practices](https://www.nccoe.nist.gov/projects/secure-software-development-security-and-operations-devsecops-practices)
 
+**Environment Flow Activity Diagram**
+
+```mermaid
+graph TD
+    A[Developer commits code] --> B[Development Environment]
+    
+    B --> B1[Unit Tests]
+    B --> B2[Code Quality Checks]
+    B --> B3[Security Scanning]
+    
+    B1 --> C{All Dev Tests Pass?}
+    B2 --> C
+    B3 --> C
+    
+    C -->|No| D[Fix Issues & Recommit]
+    D --> A
+    
+    C -->|Yes| E[QA Environment]
+    
+    E --> E1[Functional Testing]
+    E --> E2[Integration Testing]
+    E --> E3[Security Validation]
+    E --> E4[Compliance Checks]
+    
+    E1 --> F{QA Validation Complete?}
+    E2 --> F
+    E3 --> F
+    E4 --> F
+    
+    F -->|Issues Found| G[Create Bug Reports]
+    G --> D
+    
+    F -->|Pass| H[Staging Environment]
+    
+    H --> H1[End-to-End Testing]
+    H --> H2[Performance Testing]
+    H --> H3[User Acceptance Testing]
+    H --> H4[Final Security Review]
+    
+    H1 --> I{Production Ready?}
+    H2 --> I
+    H3 --> I
+    H4 --> I
+    
+    I -->|Not Ready| J[Address Issues]
+    J --> G
+    
+    I -->|Approved| K[Production Deployment]
+    
+    K --> K1[Blue/Green Switch]
+    K --> K2[Canary Release]
+    K --> K3[Rolling Update]
+    
+    K1 --> L[Production Environment]
+    K2 --> L
+    K3 --> L
+    
+    L --> L1[Continuous Monitoring]
+    L --> L2[Incident Response]
+    L --> L3[Performance Metrics]
+    
+    L1 --> M{Issues Detected?}
+    L2 --> M
+    L3 --> M
+    
+    M -->|Yes| N[Rollback/Hotfix]
+    N --> K
+    
+    M -->|No| O[Success - Monitor & Maintain]
+```
+
+**Key Testing Gates**
+
+```mermaid
+graph LR
+    subgraph "Development"
+        D1[Unit Tests] --> D2[SAST] --> D3[Dependency Scan]
+    end
+    
+    subgraph "QA" 
+        Q1[Integration Tests] --> Q2[API Tests] --> Q3[Security Tests]
+    end
+    
+    subgraph "Staging"
+        S1[E2E Tests] --> S2[Load Tests] --> S3[UAT]
+    end
+    
+    subgraph "Production"
+        P1[Health Checks] --> P2[Monitoring] --> P3[Alerts]
+    end
+    
+    D3 --> Q1
+    Q3 --> S1  
+    S3 --> P1
+```
+
 #### Deployment strategies
 
 Modern deployment approaches ensure safe, reliable software releases:
