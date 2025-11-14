@@ -155,14 +155,30 @@ The Third-Party-Copy Sequence illustrating interactions between Rucio, FTS and t
 
 #### Environments
 
-- **Development** – for active feature work and integration (single-node `docker-compose` or Kubernetes). Early static code analysis and security scans are applied here.
-- **QA** – focused on functional, integration, regression, and security testing (including vulnerability scanning and dependency checks), often with mock or partial production data. Ensures features meet requirements and security standards before moving forward.
-- **Staging** – a near-identical replica of production for final acceptance, load, security, and release validation under production-like conditions. Often the last checkpoint before deployment, including penetration testing and compliance checks.
-- **Production** – multi-node, multi-site deployments for live operations with continuous security monitoring and incident response.
+- **Development** – for active feature work and integration (typically single-node `docker-compose` or Kubernetes). Includes automated code quality checks, security scanning, and unit testing to catch issues early.
+- **QA** – functional, integration, and security testing with controlled datasets. Validates feature requirements and security standards before promotion to staging.
+- **Staging** – production-like environment for final acceptance, performance, and security validation. Serves as the final checkpoint before production deployment.
+- **Production** – live operational environment with appropriate redundancy, continuous monitoring, and incident response capabilities.
+
+Based on industry best practices from:
+- [CDF Best Practices - CI/CD](https://bestpractices.cd.foundation/)
+- [NIST DevSecOps Practices](https://www.nccoe.nist.gov/projects/secure-software-development-security-and-operations-devsecops-practices)
 
 #### Deployment strategies
 
-**Deployment strategies** such as **Blue-Green** use staging as the inactive environment to validate functionality, integration, performance, security, and release readiness before switching traffic. **Canary Releases** leverage QA/staging to ensure builds pass all required validations—including security scans—before gradual rollout to production. **GitOps** manages all environments from version-controlled definitions, enabling controlled rolling updates with automated rollback on failure, including security policy enforcement.
+Modern deployment approaches ensure safe, reliable software releases:
+
+- **Blue-Green Deployments** – maintain two identical environments, switching traffic after validation
+- **Canary Releases** – gradual rollout to subset of users with monitoring and rollback capabilities  
+- **GitOps** – infrastructure and deployments managed through version control for consistency and traceability
+
+Security validation and policy enforcement are integrated throughout the deployment pipeline.
+
+#### Ephemeral environments
+
+**Preview environments** are automatically created for feature branches and pull requests, enabling early stakeholder feedback and isolated testing without environment conflicts. These temporary environments are provisioned and destroyed based on development lifecycle needs.
+
+Learn more: [What is an ephemeral environment?](https://ephemeralenvironments.io)
 
 #### Development environment – Single Node (docker-compose)
 
