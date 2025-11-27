@@ -101,6 +101,24 @@ Implementation compliance will be confirmed through:
 
 ## Pros and Cons of the Options
 
+### Perimeter-based security with VPN access
+
+Traditional approach using network-level security with VPN access for internal services.
+
+```sh
+[External Client] → [VPN Gateway] → [Internal Network (Trusted Zone)]
+                                           ↓
+                              [Service A] ↔ [Service B] ↔ [Service C]
+```
+
+* Good, because simple to understand and implement initially
+* Good, because minimal changes required to existing services
+* Neutral, because works well for simple, monolithic applications
+* Bad, because assumes internal network is trusted (breach = full access)
+* Bad, because difficult to implement fine-grained access controls
+* Bad, because poor auditability and limited visibility into service access
+* Bad, because no control over east-west traffic patterns
+
 ### Service-level authentication and authorization with direct integration
 
 Services implement JWT validation and policy engine integration directly in application code.
@@ -110,6 +128,29 @@ Services implement JWT validation and policy engine integration directly in appl
 * Bad, because every service team must implement authentication/authorization correctly
 * Bad, because authorization code scattered across all services (inconsistency risk)
 * Bad, because difficult to ensure uniform security across all teams
+
+### Zero trust with IAM introspection and policy engine hooks
+
+API gateway and services call IAM introspection endpoint which integrates with policy engines for combined authentication and authorization decisions.
+
+```sh
+# North-South Traffic
+[External Client] → [API Gateway] → [IAM Introspection + OPA] → [Service A]
+
+# East-West Traffic  
+[Service A] → [IAM Introspection + OPA] → [Service B]
+```
+
+* Good, because single call provides both authentication and authorization decisions
+* Good, because leverages RFC 7662 standard introspection with policy engine extensions
+* Good, because consistent approach for both north-south and east-west traffic
+* Good, because centralized policy decisions through IAM+OPA integration
+* Good, because enhanced introspection response can include permissions and context
+* Good, because works well with legacy systems that support OAuth introspection
+* Neutral, because requires IAM system that supports policy engine hooks
+* Bad, because all requests must call IAM endpoint (potential performance bottleneck)
+* Bad, because single point of failure if IAM system is unavailable
+* Bad, because limited to IAM systems with extensibility capabilities
 
 ### Zero trust with API gateway and authorization sidecars
 
@@ -123,6 +164,20 @@ Authorization handled by sidecars (OPA/Envoy) with services focusing purely on b
 * Bad, because slight performance overhead (1-3ms per request)
 
 ## More Information
+
+**Architecture Components:**
+- **API Gateway (North-South)**: Envoy, NGINX, Kong, Istio Gateway, Traefik
+- **Authorization Sidecars**: Envoy + OPA, Envoy + OpenFGA, NGINX + OPA
+- **Policy Engines**: OPA (Open Policy Agent), OpenFGA, Cedar
+- **Identity Provider**: OIDC/OAuth2 compliant systems (Keycloak, Auth0, Okta)
+- **Token Validation Libraries**: JWT libraries for signature and claims validation (jose, jsonwebtoken, etc.)
+- **IAM with Policy Hooks**: Keycloak (authorization services), Auth0 (rules/actions), Okta (hooks)
+
+**Implementation Patterns:**
+- **Sidecar Authorization**: Authorization sidecars handle token validation and policy enforcement
+- **IAM Introspection**: Services call IAM introspection endpoint (RFC 7662) which queries policy engines and returns enhanced responses
+- **Direct Integration**: Services validate tokens offline (using public keys) and call policy engines directly for authorization decisions
+- **Recommended Approach**: Sidecar-based authorization for operational simplicity and consistency
 
 **Sidecar Implementation Options:**
 - **Envoy + OPA**: Industry standard, used by Istio service mesh
@@ -141,5 +196,39 @@ Authorization handled by sidecars (OPA/Envoy) with services focusing purely on b
 - **Sidecar overhead**: 1-3ms additional latency
 - **Policy decision**: 5-50ms depending on complexity and caching
 - **Total overhead**: Typically 5-10ms for cached decisions
+
+**Traffic Flow Definitions:**
+- **North-South Traffic**: External users/clients accessing internal services through API Gateway (gateway validates, sidecars provide defense-in-depth)
+- **East-West Traffic**: Service-to-service communication where sidecars validate tokens and check policies (mandatory - no gateway present)
+
+**Implementation Timeline:**
+- Phase 1: Deploy API gateway with OIDC token validation (north-south)
+- Phase 2: Select and deploy policy engine infrastructure
+- Phase 3: Deploy authorization sidecars to all services (for east-west traffic)
+- Phase 4: Implement policy engine integration in sidecars for authorization decisions
+- Phase 5: Define and deploy fine-grained policies, remove embedded auth logic
+- Phase 6: Security audit to verify validation at all service boundaries
+
+**Success Metrics:**
+- API gateway validates all north-south traffic
+- Authorization sidecars deployed to 100% of services (critical for east-west)
+- Sidecar-based authorization for all service-to-service communication
+- Sub-10ms authorization overhead for 95% of requests
+- 99.9% API gateway and sidecar availability
+- Centralized audit logs for all authorization decisions
+- Zero services bypassing sidecar authorization
+- Zero instances of implicit trust anti-patterns in code reviews
+
+**Standards References:**
+- **NIST SP 800-207**: "Zero Trust Architecture" - https://csrc.nist.gov/publications/detail/sp/800-207/final
+- **CISA Zero Trust Maturity Model**: https://www.cisa.gov/zero-trust-maturity-model
+- **Google BeyondCorp**: https://research.google/pubs/pub43231/
+- **OPA Documentation**: https://www.openpolicyagent.org/docs/latest/
+- **OpenFGA Documentation**: https://openfga.dev/docs/
+- **Cedar Documentation**: https://docs.cedarpolicy.com/
+- **RFC 7519**: JSON Web Token (JWT) - https://tools.ietf.org/html/rfc7519
+- **RFC 7662**: OAuth 2.0 Token Introspection - https://tools.ietf.org/html/rfc7662
+- **Envoy Authorization**: https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/ext_authz_filter
+- **Istio Authorization Policies**: https://istio.io/latest/docs/reference/config/security/authorization-policy/
 
 This decision should be re-evaluated if sidecar operational complexity exceeds acceptable limits, if performance overhead becomes problematic, or if direct integration proves more suitable for specific organizational constraints.
