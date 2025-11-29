@@ -329,3 +329,20 @@ TODO(mgajek-cern): Add links if existing
 - **SLO (Service Level Objective):** Internal targets to meet SLAs (e.g., 99.95% uptime target)
 - **SLI (Service Level Indicator):** Measurable metrics that track SLO performance (e.g., actual uptime percentage)
 
+#### As-a-Service (XaaS) Options
+
+* **SaaS (Software as a Service)** – Ready-to-use applications delivered over the network; provider manages infrastructure, OS, and updates. Example: Gmail, Slack.
+* **PaaS (Platform as a Service)** – Development and runtime environment; provider handles OS/runtime and scaling, user manages app code. Example: Heroku, Google App Engine.
+* **IaaS (Infrastructure as a Service)** – Virtualized compute, storage, networking; user manages OS and apps, provider manages hardware and virtualization. Example: AWS EC2, Azure VMs.
+* **FaaS (Function as a Service / Serverless)** – Run individual functions or code snippets without managing servers; provider handles runtime and scaling. Example: AWS Lambda.
+* **DaaS (Data as a Service)** – Access to curated datasets via API; provider manages storage and delivery. Example: Snowflake, OpenWeatherMap API.
+* **MLaaS (Machine Learning as a Service)** – Pre-built ML models and training/deployment tools; user provides input and tuning. Example: Google Vertex AI.
+* **AIaaS (Artificial Intelligence as a Service)** – AI capabilities via API; provider manages models and infrastructure. Example: ChatGPT, Claude.
+
+#### Cloud Deployment Types
+
+* **Public Cloud** – Shared infrastructure available to the general public, hosted by a provider. Example: AWS, Azure, GCP.
+* **Private Cloud** – Exclusive infrastructure for a single organization, either on-premises or hosted.
+* **Community Cloud** – Shared infrastructure among a group of organizations with common requirements.
+* **Hybrid Cloud** – Combination of private and public cloud, allowing flexibility for sensitive data or scaling.
+* **Multi-Cloud** – Use of multiple public cloud providers simultaneously for redundancy, performance, or avoiding vendor lock-in.
