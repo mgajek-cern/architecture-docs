@@ -1,4 +1,4 @@
-## Rucio Daemons using Transfer Tools (FTS3, Globus)
+# Rucio Daemons using Transfer Tools (FTS3, Globus)
 
 *Ideally checkout previous concept on [transfer-tool-interface](./transfer-tool-interface.md).*
 

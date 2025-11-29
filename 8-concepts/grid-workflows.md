@@ -1,4 +1,4 @@
-### 🔧 **"Grid workflows" in short:**
+# Grid workflows
 
 > **Coordinated sequences of tasks** (like data transfers, job executions, staging) that run across **distributed computing resources** — typically on a **computational grid**.
 

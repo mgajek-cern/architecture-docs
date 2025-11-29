@@ -1,4 +1,4 @@
-### TransferTool Interface (Rucio)
+# TransferTool Interface (Rucio)
 
 * **Purpose:**
   Defines a standard interface for different *transfer tools* (external systems/services) that manage data transfers between storage endpoints (RSEs).
