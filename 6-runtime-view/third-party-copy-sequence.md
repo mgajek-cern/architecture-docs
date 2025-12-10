@@ -64,12 +64,12 @@ sequenceDiagram
    
    Note over F: Pre-transfer validation
    F->>S1: Check source file exists + s
-   S1->>I: Introspect s (online validation)
+   S1->>I: Introspect s (introspection-based validation)
    I-->>S1: Valid/Invalid
    S1-->>F: File exists confirmation
    
    F->>S2: Check destination path + d  
-   S2->>I: Introspect d (online validation)
+   S2->>I: Introspect d (introspection-based validation)
    I-->>S2: Valid/Invalid
    S2-->>F: Path status
    
@@ -83,7 +83,7 @@ sequenceDiagram
    F->>S2: COPY request + d + TransferHeaderAuth: s
   
    Note over S2: Destination storage token validation
-   alt Online validation
+   alt Introspection-based validation
        S2->>I: Introspect d
        I-->>S2: Valid/Invalid + cache validation result
    else Offline validation
@@ -93,7 +93,7 @@ sequenceDiagram
    S2->>S1: GET request + s
   
    Note over S1: Source storage token validation 
-   alt Online validation
+   alt Introspection-based validation
        S1->>I: Introspect s
        I-->>S1: Valid/Invalid + cache validation result
    else Offline validation
@@ -111,7 +111,7 @@ sequenceDiagram
    R-->>U: Result with transfer details
 ```
 
-Online validation sequence:
+Introspection-based validation sequence:
 
 ```mermaid
 sequenceDiagram
@@ -191,7 +191,7 @@ sequenceDiagram
 ## Validation Methods
 
 - **Offline validation**: Storage systems validate JWT signatures and claims locally using cached public keys - fastest performance
-- **Online validation**: Storage queries IdP introspection endpoint for each token - creates performance bottlenecks - creates performance bottlenecks but enables real-time revocation
+- **Introspection-based validation**: Storage queries IdP introspection endpoint for each token - creates performance bottlenecks but enables real-time revocation
 - **Validation result caching**: Storage endpoints may cache validation outcomes to reduce repeated IdP queries
 
 ## Third-Party Copy Mechanism
