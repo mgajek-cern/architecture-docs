@@ -34,3 +34,20 @@ A single DID may have multiple replicas across different RSEs.
 Invariant:
 - One DID corresponds to one logical file
 - Multiple physical replicas may exist simultaneously
+
+```mermaid
+graph LR
+    DID["DID<br/>(logical identity)"]
+
+    RSE1["RSE A"]
+    RSE2["RSE B"]
+    RSE3["RSE C"]
+
+    Rep1["Replica"]
+    Rep2["Replica"]
+    Rep3["Replica"]
+
+    DID --> Rep1 --> RSE1
+    DID --> Rep2 --> RSE2
+    DID --> Rep3 --> RSE3
+```
