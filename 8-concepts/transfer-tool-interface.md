@@ -5,6 +5,9 @@
 
   The source code to refer to can be found [here](https://github.com/rucio/rucio/tree/master/lib/rucio/transfertool).
 
+  Rucio acts as the **control plane**, deciding *what* data should be transferred, *where*, and *when*.
+  Transfer tools implement the **data plane**, executing the actual byte-level movement between storage endpoints.
+
 * **Key Methods:**
 
   * `submission_builder_for_path()`: Analyze if a transfer path can be handled by this tool and prepare the submission builder.
