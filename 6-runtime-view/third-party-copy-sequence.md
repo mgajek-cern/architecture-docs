@@ -232,3 +232,65 @@ The availability of multiple TPC implementations allows the scientific computing
 - **FTS Token Management**: Automatic refresh of long-lived transfer tokens
 
 **Trade-offs**: Aggressive caching improves performance but may delay permission revocation propagation. Cache TTL configuration balances responsiveness with system load.
+
+## Multi-IdP variant
+
+### Status quo: single-IdP submission
+
+Rucio fetches both tokens from one issuer. FTS3 already keys per-token by issuer, so no FTS3-side change is needed for this flow.
+
+```mermaid
+sequenceDiagram
+    participant R as Rucio
+    participant A as IdP A
+    participant FS as FTS submit
+    participant FT as fts_token
+    participant UC as url-copy
+
+    R->>A: request_token(aud=src, scope=storage.read, offline_access)
+    A-->>R: access_token (iss=A)
+    R->>A: request_token(aud=dst, scope=storage.modify, offline_access)
+    A-->>R: access_token (iss=A)
+    R->>FS: POST /jobs (source_tokens[], destination_tokens[])
+    FS->>FS: persist t_token rows (issuer=A)
+    FS->>FT: schedule exchange & refresh
+    FT->>A: RFC 8693 token exchange (per token's iss)
+    FS->>UC: spawn with src/dst token_id
+    UC-->>UC: gfal2 TPC: src→dst with both bearer tokens
+```
+
+### Desired state: multi-IdP submission
+
+Rucio resolves the issuer **per RSE** (`RseAttr.OIDC_ISSUER`). Source and destination tokens may carry different `iss` claims. FTS3 schema is unchanged.
+
+```mermaid
+sequenceDiagram
+    participant R as Rucio
+    participant A as IdP A
+    participant B as IdP B
+    participant FT as fts_token
+    participant UC as url-copy
+
+    R->>A: request_token(aud=src, scope=storage.read), issuer=A
+    A-->>R: access_token (iss=A)
+    R->>B: request_token(aud=dst, scope=storage.modify), issuer=B
+    B-->>R: access_token (iss=B)
+    R->>FT: POST /jobs (tokens carry distinct iss claims)
+    FT->>FT: persist two t_token rows (issuer A and B)
+    FT->>A: exchange src token at IdP A
+    FT->>B: exchange dst token at IdP B
+    FT->>UC: spawn url-copy
+    UC-->>UC: gfal2 TPC: src bearer (iss=A), dst bearer (iss=B)
+```
+
+### What changes, what doesn't
+
+| Component       | Change                                                                    |
+| --------------- | ------------------------------------------------------------------------- |
+| Rucio RSE model | New attribute `RseAttr.OIDC_ISSUER`                                       |
+| Rucio OIDC core | `request_token(audience, scope, issuer=...)` dispatches per-IdP config    |
+| FTS3 schema     | None (`t_token.issuer`, `t_token_provider` already exist)                 |
+| FTS3 executors  | Verify no IAM-flavored assumptions block non-IAM IdPs (tracked as a risk) |
+| `url-copy`      | None                                                                      |
+
+See [`concept-001-wp2-004-multi-idp-third-party-copy.md`](../8-concepts/concept-001-wp2-004-multi-idp-third-party-copy.md) for the full design.

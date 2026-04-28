@@ -49,7 +49,7 @@
 
 ### Overall Availability
 **SLA:** 99.9% uptime (≤8.77 hours downtime per year)
-**SLO:** 99.95% uptime target (≤4.38 hours downtime per year) 
+**SLO:** 99.95% uptime target (≤4.38 hours downtime per year)
 **SLI:** Service availability percentage calculated from health check results
 **Test:** Long-running availability monitoring over 6+ months, automated health checks every 30 seconds
 
@@ -79,6 +79,11 @@
 **SLO:** Role-based access control compliance with fine-grained permissions per dataset/container
 **SLI:** Authorization decision time and access denial rate for unauthorized requests
 **Test:** Access control matrix testing, privilege escalation prevention validation
+
+### Federated AAI
+**SLO:** Support third-party copy between storage endpoints trusting different OIDC issuers, provided each issuer conforms to the WLCG JWT Profile; ≥2 distinct trusted issuers per deployment
+**SLI:** Number of configured trusted issuers; success rate of cross-issuer TPC submissions; token-exchange success rate per issuer
+**Test:** Cross-issuer TPC integration tests against each candidate IdP (e.g. CERN IAM, CILogon, Keycloak); RFC 8693 token-exchange conformance per issuer. See [ADR-008](../9-adrs/adr-008-multi-idp-token-issuance-per-rse.md) and [concept-001-wp2-004](../8-concepts/concept-001-wp2-004-multi-idp-third-party-copy.md).
 
 ### Audit Trail
 **SLO:** 100% of data access, transfers, and administrative actions logged and retained for 2 years minimum
