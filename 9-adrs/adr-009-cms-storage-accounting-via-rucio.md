@@ -42,15 +42,17 @@ Chosen option: **"Rucio-central with Auditor reconciliation"**, because it:
 
 - Provides a single accounting truth across N heterogeneous storage backends
 - Matches CRMS's identity granularity (Rucio knows account → DID → RSE; storage knows only paths and bytes)
-- Reuses existing infrastructure (`rse_counter`, `account_counter`, `rucio-auditor`) without new daemons
+- Reuses existing infrastructure (`rse_usage`, `account_usage`, `rucio-auditor`) without new daemons
 - Exposes one stable, versioned REST API instead of N storage-specific integrations
 - Preserves the e-infra storage layer as an unchanged, opaque resource provider
 
-> Rucio's accounting source is the Abacus-maintained `rse_counter` / `account_counter` tables. Reconciliation against physical storage is a separate, distributed workflow (dumper → auditor → quarantined_replicas) that runs at storage-dump cadence and surfaces drift as metadata on the accounting feed.
+**NOTE:**
+- Rucio's accounting source is the Abacus-maintained `rse_usage` / `account_usage` tables. Reconciliation against physical storage is a separate, distributed workflow (dumper → auditor → quarantined_replicas) that runs at storage-dump cadence and surfaces drift as metadata on the accounting feed.
+- `rse_usage` is keyed by `(rse_id, source)`, so multiple usage views per RSE coexist (catalog-derived + storage-reported). `account_usage` is catalog-derived only.
 
 ### Implementation
 
-**No schema changes.** Rucio's `rse_counter` and `account_counter` tables already maintain the data CRMS needs. The Abacus daemons (`rucio-abacus-account`, `rucio-abacus-rse`) keep them current.
+**No schema changes.** Rucio's `rse_usage` and `account_usage` tables already maintain the data CRMS needs. The Abacus daemons (`rucio-abacus-account`, `rucio-abacus-rse`) keep them current.
 
 **Reconciliation.** `rucio-auditor` consumes dumps produced by `rucio-dumper` (HDFS, SRM dumps, S3 list) and reconciles them against the catalog. Cadence may need tuning per CRMS's freshness requirements.
 

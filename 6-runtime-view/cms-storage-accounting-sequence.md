@@ -28,7 +28,7 @@ sequenceDiagram
     participant CAR as CAR
 
     CMS->>API: GET /accounts/{acct}/usage  (or /rses/{rse}/usage)
-    API->>DB: aggregate from account_counter / rse_counter
+    API->>DB: aggregate from account_usage / rse_usage
     DB-->>API: usage rows (bytes, files, last_reconciled_at)
     API-->>CMS: reconciled usage feed
     CMS->>CTPM: translate usage → credits

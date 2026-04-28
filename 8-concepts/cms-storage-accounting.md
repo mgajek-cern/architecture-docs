@@ -13,7 +13,7 @@ See also: [`storage-service-endpoints.md`](./storage-service-endpoints.md).
 
 ## Why Rucio-central is the working hypothesis
 
-1. **Single accounting truth.** Rucio already maintains per-account, per-RSE usage in `rse_counter` and `account_counter` tables, updated by the Abacus daemons. CRMS gets one consistent answer regardless of how many storage backends exist. The Abacus daemons (`rucio-abacus-account`, `rucio-abacus-rse`) maintain these counters; the Auditor handles drift detection as a separate workflow.
+1. **Single accounting truth.** Rucio already maintains per-account, per-RSE usage in `rse_usage` and `account_usage` tables, updated by the Abacus daemons. CRMS gets one consistent answer regardless of how many storage backends exist. The Abacus daemons (`rucio-abacus-account`, `rucio-abacus-rse`) maintain these usage tables; the Auditor handles drift detection as a separate workflow.
 2. **Identity model match.** CRMS reasons in terms of users and projects (CAR). Rucio knows users → accounts → DIDs → replicas → RSEs. Storage endpoints know paths and bytes — they don't know who owns what at the credit-accounting granularity CRMS needs.
 3. **Existing reconciliation.** The Auditor daemon (`rucio-auditor`) reads dumps produced by the dumper and reconciles against the Rucio catalog. CRMS gets reconciled numbers for free.
 4. **Stable API surface.** Rucio's REST API is versioned. Storage endpoints expose heterogeneous interfaces (XRootD, WebDAV, S3, POSIX) — direct CRMS-to-storage integration would multiply by N.
@@ -34,7 +34,7 @@ For the runtime sequence, see [`6-runtime-view/cms-storage-accounting-sequence.m
 
 | Component | Change |
 | --- | --- |
-| Rucio core | None — `rse_counter`/`account_counter` already exist |
+| Rucio core | None — `rse_usage`/`account_usage` already exist |
 | Rucio Auditor | Possibly extended reconciliation cadence; no new daemon |
 | Rucio REST API | New endpoint(s) for CRMS-shaped accounting queries (or reuse existing) |
 | CRMS RUEIT | New client to Rucio API |
