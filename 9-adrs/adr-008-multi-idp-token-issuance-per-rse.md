@@ -18,7 +18,7 @@ Federated and cross-VO third-party copy (TPC) requires that source and destinati
 
 How can Rucio acquire source and destination tokens from distinct IdPs per RSE without invasive changes to FTS3 or the storage layer?
 
-This ADR extends [ADR-004](./adr-004-token-propagation-strategy.md) — it does not supersede it. See also [concept-001-wp2-004](../8-concepts/concept-001-wp2-004-multi-idp-third-party-copy.md).
+This ADR extends [ADR-004](./adr-004-token-propagation-strategy.md) — it does not supersede it. See also [concept](../8-concepts/multi-idp-third-party-copy.md).
 
 **Invariant:** Each token used in a transfer MUST be minted against the issuer trusted by the corresponding RSE. Rucio is responsible for ensuring that issuer, audience, and scope are consistent with the RSE's policy at submission time.
 
@@ -234,7 +234,7 @@ If `OIDC_ISSUER` is unset on either RSE, that side falls back to the deployment-
 - OIDC discovery vs. static config for IdP metadata
 
 **Related:**
-- Concept: [`concept-001-wp2-004-multi-idp-third-party-copy.md`](../8-concepts/concept-001-wp2-004-multi-idp-third-party-copy.md)
+- Concept: [`multi-idp-third-party-copy.md`](../8-concepts/multi-idp-third-party-copy.md)
 - Runtime view: [`third-party-copy-sequence.md`](../6-runtime-view/third-party-copy-sequence.md)
 - Extends: [`adr-004-token-propagation-strategy.md`](./adr-004-token-propagation-strategy.md)
 - Background: [`wlcg-tokens.md`](../8-concepts/wlcg-tokens.md)

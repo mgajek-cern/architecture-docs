@@ -18,7 +18,7 @@ The Credit Management System (CRMS) requires storage-usage accounting to feed CT
 
 How should CRMS obtain authoritative, reconciled storage-usage accounting data?
 
-See also: [concept-001-wp2-005](../8-concepts/concept-001-wp2-005-cms-storage-accounting.md).
+See also: [concept](../8-concepts/cms-storage-accounting.md).
 
 ## Decision Drivers
 
@@ -134,6 +134,5 @@ For sequences, see [runtime view](../6-runtime-view/cms-storage-accounting-seque
 - Failure mode when Rucio API is unavailable mid-billing-cycle
 
 **Related:**
-- Concept: [`concept-001-wp2-005-cms-storage-accounting.md`](../8-concepts/concept-001-wp2-005-cms-storage-accounting.md)
+- Concept: [`cms-storage-accounting.md`](../8-concepts/cms-storage-accounting.md)
 - Runtime view: [`cms-storage-accounting-sequence.md`](../6-runtime-view/cms-storage-accounting-sequence.md)
-- Background: [`concept-001-wp2-002-credit-management-system-integration-feasability.md`](../8-concepts/concept-001-wp2-002-credit-management-system-integration-feasability.md)

@@ -41,4 +41,4 @@ Rucio's database schema represents the core domain model for distributed data ma
 - Optimized for high-volume insert/update operations
 - Supports multi-VO isolation through account/scope partitioning
 
-> **Multi-IdP TPC (planned):** Adds `RseAttr.OIDC_ISSUER` on the Rucio side. No FTS3 schema change — `t_token.issuer` and `t_token_provider` already model per-token issuers. See [ADR-008](../9-adrs/adr-008-multi-idp-token-issuance-per-rse.md) and [concept-001-wp2-004](../8-concepts/concept-001-wp2-004-multi-idp-third-party-copy.md).
+> **Multi-IdP TPC (planned):** Adds `RseAttr.OIDC_ISSUER` on the Rucio side. No FTS3 schema change — `t_token.issuer` and `t_token_provider` already model per-token issuers. See [ADR-008](../9-adrs/adr-008-multi-idp-token-issuance-per-rse.md) and [concept](../8-concepts/multi-idp-third-party-copy.md).

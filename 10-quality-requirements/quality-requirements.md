@@ -83,7 +83,7 @@
 ### Federated AAI
 **SLO:** Support third-party copy between storage endpoints trusting different OIDC issuers, provided each issuer conforms to the WLCG JWT Profile; ≥2 distinct trusted issuers per deployment
 **SLI:** Number of configured trusted issuers; success rate of cross-issuer TPC submissions; token-exchange success rate per issuer
-**Test:** Cross-issuer TPC integration tests against each candidate IdP (e.g. CERN IAM, CILogon, Keycloak); RFC 8693 token-exchange conformance per issuer. See [ADR-008](../9-adrs/adr-008-multi-idp-token-issuance-per-rse.md) and [concept-001-wp2-004](../8-concepts/concept-001-wp2-004-multi-idp-third-party-copy.md).
+**Test:** Cross-issuer TPC integration tests against each candidate IdP (e.g. CERN IAM, CILogon, Keycloak); RFC 8693 token-exchange conformance per issuer. See [ADR-008](../9-adrs/adr-008-multi-idp-token-issuance-per-rse.md) and [concept](../8-concepts/multi-idp-third-party-copy.md).
 
 ### Audit Trail
 **SLO:** 100% of data access, transfers, and administrative actions logged and retained for 2 years minimum

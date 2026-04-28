@@ -1,6 +1,6 @@
 # CMS storage accounting sequence
 
-Runtime view supporting [ADR-009](../9-adrs/adr-009-cms-storage-accounting-via-rucio.md) and [concept-001-wp2-005](../8-concepts/concept-001-wp2-005-cms-storage-accounting.md).
+Runtime view supporting [ADR-009](../9-adrs/adr-009-cms-storage-accounting-via-rucio.md) and [concept](../8-concepts/cms-storage-accounting.md).
 
 ## dumper-fed loop (Rucio-internal, periodic)
 

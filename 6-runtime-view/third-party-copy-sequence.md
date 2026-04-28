@@ -293,4 +293,4 @@ sequenceDiagram
 | FTS3 executors  | Verify no IAM-flavored assumptions block non-IAM IdPs (tracked as a risk) |
 | `url-copy`      | None                                                                      |
 
-See [`concept-001-wp2-004-multi-idp-third-party-copy.md`](../8-concepts/concept-001-wp2-004-multi-idp-third-party-copy.md) for the full design.
+See [`multi-idp-third-party-copy.md`](../8-concepts/multi-idp-third-party-copy.md) for the full design.

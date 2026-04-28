@@ -1,10 +1,8 @@
-# Concept 001-WP2-004: Multi-IdP support for third-party copy
+# Multi-IdP support for third-party copy
 
 ## Context
 
 Third-party copy (TPC) between two storage endpoints requires a bearer token at the source and a bearer token at the destination. Today, both tokens are obtained from the same IdP configured in Rucio. Real-world federated and cross-VO scenarios — e.g. data hosted on a CILogon-trusting endpoint copied to a CERN-IAM-trusting endpoint — require tokens from different issuers in the same transfer.
-
-See also: [`wlcg-tokens.md`](./wlcg-tokens.md), [`concept-001-wp2-001-aai-framework-integration-feasability.md`](./concept-001-wp2-001-aai-framework-integration-feasability.md).
 
 ## Status quo
 

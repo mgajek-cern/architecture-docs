@@ -1,4 +1,4 @@
-# Concept 001-WP2-005: Credit Management System integration for storage accounting
+# Credit Management System integration for storage accounting
 
 ## Context
 
@@ -9,7 +9,7 @@ The Credit Management System (CRMS) needs storage-usage accounting to translate 
 
 This concept sketches the integration to support an upcoming ADR.
 
-See also: [`concept-001-wp2-002-credit-management-system-integration-feasability.md`](./concept-001-wp2-002-credit-management-system-integration-feasability.md), [`storage-service-endpoints.md`](./storage-service-endpoints.md).
+See also: [`storage-service-endpoints.md`](./storage-service-endpoints.md).
 
 ## Why Rucio-central is the working hypothesis
 
@@ -52,4 +52,3 @@ For the runtime sequence, see [`6-runtime-view/cms-storage-accounting-sequence.m
 
 - ADR: [`adr-009-cms-storage-accounting-via-rucio.md`](../9-adrs/adr-009-cms-storage-accounting-via-rucio.md)
 - Runtime view: [`cms-storage-accounting-sequence.md`](../6-runtime-view/cms-storage-accounting-sequence.md)
-- Related: [`concept-001-wp2-002-credit-management-system-integration-feasability.md`](./concept-001-wp2-002-credit-management-system-integration-feasability.md)
