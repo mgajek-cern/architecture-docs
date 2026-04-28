@@ -140,6 +140,7 @@ The source code can be found [here](https://github.com/rucio/rucio/tree/master/l
 - Configurable via `conveyor` section in `rucio.cfg`
 - `transfertool` parameter supports: `fts3`, `globus`
 - `filter_transfertool` can restrict which transfer tool a daemon instance handles
+- Feature completeness and deployment prevalence may vary by transfer backend.
 
 **State Transitions:**
 ```
