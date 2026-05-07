@@ -34,11 +34,13 @@
 
 ### Hybrid Architecture Pattern
 
-**Event-Driven Core** with **Microservice Boundaries**:
-- **Database events** trigger daemon processing (lightweight event model)
-- **REST API** provides synchronous interface for external systems
-- **Specialized daemons** handle distinct concerns (transfer, cleanup, monitoring)
-- **Stateless services** enable horizontal scaling
+**State-Driven Workflow System with Service Boundaries**
+
+- **Database state transitions** drive workflow progression
+- **Polling-based daemons** detect and act on state changes
+- **REST API** provides synchronous intent submission interface
+- **Specialized daemons** handle distinct responsibilities (transfer, cleanup, monitoring)
+- **Stateless worker model** enables horizontal scaling and fault tolerance
 
 ### Technology Strategy
 
